@@ -1,17 +1,17 @@
 resource "null_resource" "app-deploy" {
   count = length(aws_spot_instance_request.ec2-spot)
-
-  connection {
-    type = "ssh"
-    user = local.SSH_USERNAME
-    password = local.SSH_PASSWORD
-    host = aws_spot_instance_request.ec2-spot.*.private_ip[count.index]
-  }
   provisioner "remote-exec" {
+    connection {
+      type = "ssh"
+      user = local.SSH_USERNAME
+      password = local.SSH_PASSWORD
+      host = aws_spot_instance_request.ec2-spot.*.private_ip[count.index]
+    }
+
 
 
     inline = [
-      "ansible-pull -U https://github.com/Siny93/ANSIBLE1.git roboshop-pull.yml -e COMPONENT=${var.COMPONENT} -e ENV=${var.ENV} -e APP_VERSION=${APP_VERSION}"
+      "ansible-pull -U https://github.com/Siny93/ANSIBLE1.git roboshop-pull.yml -e COMPONENT=${var.COMPONENT} -e ENV=${var.ENV} -e APP_VERSION=${APP_VERSION} -e NEXUS_USERNAME=${local.NEXUS_USERNAME} -e NEXUS_PASSWORD=${local.NEXUS_PASSWORD}"
     ]
   }
 }
