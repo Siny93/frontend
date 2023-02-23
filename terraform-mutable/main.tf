@@ -1,4 +1,4 @@
-module "app-module" {
+module "app-deploy" {
   source = "git::https://github.com/Siny93/terraform-mutable-app-deploy.git"
   INSTANCE_COUNT = var.INSTANCE_COUNT
   INSTANCE_TYPE = var.INSTANCE_TYPE
