@@ -6,6 +6,6 @@ module "app-module" {
   ENV = var.ENV
   APP_VERSION = var.APP_VERSION
   APP_PORT = 80
-  LB_RULE_PRIORITY = 200
+  LB_RULE_PRIORITY = 300
   LB_PUBLIC = true
 }
